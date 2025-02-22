@@ -71,8 +71,31 @@ public class StudentsController
      * @return the created student (which was inserted into the database), as JSON
      */
     // TODO: implement this route
+    @PostMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
+    Student create(
+            @RequestParam("firstName") String firstName,
+            @RequestParam("lastName") String lastName,
+            @RequestParam("birthDate") Date birthDate
+    )
+    {
+        System.out.println("firstName: " + firstName);
+        System.out.println("lastName: " + lastName);
+        System.out.println("birthDate: " + birthDate);
 
-
+        try
+        {
+            Student createdStudent = new Student(firstName, lastName, birthDate);
+            Main.database.addNewStudent(createdStudent);
+            return createdStudent;
+        }
+        catch (SQLException e)
+        {
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, // 422 error code
+                    "failed to add new class to the database"
+            );
+        }
+    }
 
     /**
      * PUT /students/{id}
