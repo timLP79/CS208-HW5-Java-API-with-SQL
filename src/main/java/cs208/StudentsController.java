@@ -43,7 +43,19 @@ public class StudentsController
      * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
      */
     // TODO: implement this route
-
+    @GetMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Student show(@PathVariable("id") int id)
+    {
+        System.out.println("id: " + id);
+        Student studentWithId = Main.database.getStudentWithId(id);
+        if (studentWithId == null)
+        {
+            System.out.println("No student with id = " + id + " exists.");
+            //return 404 status code
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id = " + id + " not found.");
+        }
+        return studentWithId;
+    }
 
 
     /**
