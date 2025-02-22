@@ -26,7 +26,7 @@ public class StudentsController
      *
      * @return a list of students (extracted from the students table in the database) as JSON
      */
-    // TODO: implement this route
+
     @GetMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
     List <Student> index()
     {
@@ -42,7 +42,7 @@ public class StudentsController
      *
      * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
      */
-    // TODO: implement this route
+
     @GetMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Student show(@PathVariable("id") int id)
     {
@@ -70,7 +70,7 @@ public class StudentsController
      *
      * @return the created student (which was inserted into the database), as JSON
      */
-    // TODO: implement this route
+
     @PostMapping(value = "/students", produces = MediaType.APPLICATION_JSON_VALUE)
     Student create(
             @RequestParam("firstName") String firstName,
