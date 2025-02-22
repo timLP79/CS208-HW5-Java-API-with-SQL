@@ -13,7 +13,7 @@ public class Main
         System.out.println("Starting the School Management System: Java API Server...");
         System.out.println("The server will listen on port 8080...");
         System.out.println("In a browser, open the URL:");
-        System.out.println("    http://localhost:8080/classes");
+        System.out.println("http://localhost:8080/classes");
         System.out.println("to see a list of classes in JSON format.");
 
         // TODO: create a SQLite data source in IntelliJ with this file name

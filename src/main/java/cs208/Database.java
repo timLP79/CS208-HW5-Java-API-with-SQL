@@ -345,13 +345,6 @@ public class Database
         return listOfRegisteredStudentJoinResults;
     }
 
-
-
-
-
-
-
-
     public Class getClassWithId(int id)
     {
         String sql =
