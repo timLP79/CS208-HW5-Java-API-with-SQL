@@ -468,6 +468,46 @@ public class Database
         return newStudent;
     }
 
+    public void updateExistingStudentInformation(Student studentToUpdate) throws SQLException
+    {
+        String sql =
+                "UPDATE students\n" +
+                        "SET first_name = ?, last_name = ?, birth_date = ?\n" +
+                        "WHERE id = ?;";
+
+        try
+                (
+                        Connection connection = getDatabaseConnection();
+                        PreparedStatement sqlStatement = connection.prepareStatement(sql);
+                )
+        {
+
+            sqlStatement.setString(1, studentToUpdate.getFirstName());
+            sqlStatement.setString(2, studentToUpdate.getLastName());
+            String birthDateString = studentToUpdate.getBirthDate().toString();
+            sqlStatement.setString(3, birthDateString);
+            sqlStatement.setInt(4, studentToUpdate.getId());
+
+            int numberOfRowsAffected = sqlStatement.executeUpdate();
+            System.out.println("numberOfRowsAffected = " + numberOfRowsAffected);
+
+            if (numberOfRowsAffected > 0)
+            {
+                System.out.println("SUCCESSFULLY updated the student with id = " + studentToUpdate.getId());
+            }
+            else
+            {
+                System.out.println("!!! WARNING: failed to update the student with id = " + studentToUpdate.getId());
+            }
+        }
+        catch (SQLException sqlException)
+        {
+            System.out.println("!!! SQLException: failed to update the student with id = " + studentToUpdate.getId());
+            System.out.println(sqlException.getMessage());
+            throw sqlException;
+        }
+    }
+
     private void printTableHeader(String[] listOfColumnNames)
     {
         System.out.print("| ");
