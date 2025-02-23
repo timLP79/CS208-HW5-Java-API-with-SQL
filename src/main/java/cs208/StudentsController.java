@@ -154,24 +154,6 @@ public class StudentsController
     }
 
     /**
-     * PATCH /students/{id}
-     * with the following optional form parameters:
-     *      firstName
-     *      lastName
-     *      birthDate
-     *
-     * The optional parameters passed in the body of the PATCH request are used to
-     * update the existing student with id = {id} in the students table in the database.
-     *
-     * @return the updated student as JSON
-     *
-     * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
-     */
-    // TODO: implement this route
-
-
-
-    /**
      * DELETE /students/{id}
      *
      * Deletes the student with id = {id} from the students table in the database.
