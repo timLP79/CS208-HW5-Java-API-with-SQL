@@ -148,7 +148,7 @@ public class StudentsController
         {
             throw new ResponseStatusException(
                     HttpStatus.UNPROCESSABLE_ENTITY, // 422 error code
-                    "failed to update the class with id = " + id + " in the database"
+                    "failed to update the student with id = " + id + " in the database"
             );
         }
     }
@@ -179,5 +179,29 @@ public class StudentsController
      * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
      */
     // TODO: implement this route
+    @DeleteMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    Student delete(@PathVariable("id") int id)
+    {
+        System.out.println("id: " + id);
 
+        try{
+            Student studentToDelete = Main.database.getStudentWithId(id);
+            if(studentToDelete == null)
+            {
+                throw new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "failed to delete the student with id = " + id + " in the database because it does not exist"
+                );
+            }
+            Main.database.deleteExistingStudent(id);
+            return studentToDelete;
+        }
+        catch (SQLException e)
+        {
+            throw new ResponseStatusException(
+                    HttpStatus.UNPROCESSABLE_ENTITY, // 422 error code
+                    "failed to delete the student with id = " + id + " in the database"
+            );
+        }
+    }
 }
