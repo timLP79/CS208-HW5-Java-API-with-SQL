@@ -111,7 +111,7 @@ public class StudentsController
      *
      * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
      */
-    // TODO: implement this route
+
     @PutMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Student update(
             @PathVariable("id") int id,
