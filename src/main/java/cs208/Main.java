@@ -16,7 +16,6 @@ public class Main
         System.out.println("http://localhost:8080/classes");
         System.out.println("to see a list of classes in JSON format.");
 
-        // TODO: create a SQLite data source in IntelliJ with this file name
         String sqliteFileName = "cs208_hw5.sqlite";
 
         database = new Database(sqliteFileName);
