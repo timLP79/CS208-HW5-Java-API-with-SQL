@@ -2,6 +2,7 @@ package cs208;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.print.attribute.standard.Media;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @RestController
@@ -32,7 +37,6 @@ public class RegisteredStudentsController
         return listOfRegisteredStudentJoinResults;
     }
 
-
     /**
      * POST /add_student_to_class
      * with the following form parameters:
@@ -42,9 +46,29 @@ public class RegisteredStudentsController
      * The parameters passed in the body of the POST request will be inserted
      * into the registered_students table in the database.
      */
-    // TODO: implement this route
+    @PostMapping(value = "/add_student_to_class")
+    public ResponseEntity<Map<String, Object>> create(
+            @RequestParam("studentID") int studentID,
+            @RequestParam("classID") int classID
+            )
+    {
+        System.out.println("studentID: " + studentID);
+        System.out.println("classID: " + classID);
 
+        Map<String, Object> response = new HashMap<>();
 
+        try
+        {
+            Main.database.addStudentToClass(studentID, classID);
+            response.put("status", "success");
+            response.put("message", "Student with id = " + studentID + " added to class with id = " + classID);
+            return ResponseEntity.ok(response);
+        }
+        catch (SQLException e)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id = " + studentID + " not found.");
+        }
+    }
 
     /**
      * DELETE /drop_student_from_class

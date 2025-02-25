@@ -57,7 +57,6 @@ public class StudentsController
         return studentWithId;
     }
 
-
     /**
      * POST /students
      * with the following form parameters:
@@ -160,7 +159,7 @@ public class StudentsController
      *
      * @throws ResponseStatusException: a 404 status code if the student with id = {id} does not exist
      */
-    // TODO: implement this route
+
     @DeleteMapping(value = "/students/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     Student delete(@PathVariable("id") int id)
     {

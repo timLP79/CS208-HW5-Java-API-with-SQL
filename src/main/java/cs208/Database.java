@@ -542,6 +542,42 @@ public class Database
         }
     }
 
+    public void addStudentToClass(int studentID, int classID) throws SQLException
+    {
+        String sql =
+                "INSERT INTO registered_students (student_id, class_id)\n" +
+                        "VALUES (?, ?);";
+
+        try
+                (
+                        Connection connection = getDatabaseConnection();
+                        PreparedStatement sqlStatement = connection.prepareStatement(sql);
+                )
+        {
+
+            sqlStatement.setInt(1, studentID);
+            sqlStatement.setInt(2, classID);
+
+            int numberOfRowsAffected = sqlStatement.executeUpdate();
+            System.out.println("numberOfRowsAffected = " + numberOfRowsAffected);
+
+            if (numberOfRowsAffected > 0)
+            {
+                System.out.println("SUCCESSFULLY inserted a new row into the registered_students table");
+            }
+            else
+            {
+                System.out.println("!!! WARNING: failed to insert a new row into the registered_students table");
+            }
+        }
+        catch (SQLException sqlException)
+        {
+            System.out.println("!!! SQLException: failed to insert a new row into the registered_students table");
+            System.out.println(sqlException.getMessage());
+            throw sqlException;
+        }
+    }
+
     private void printTableHeader(String[] listOfColumnNames)
     {
         System.out.print("| ");
