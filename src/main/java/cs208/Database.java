@@ -578,6 +578,40 @@ public class Database
         }
     }
 
+    public void dropStudentFromClass(int studentID, int classID) throws SQLException
+    {
+        String sql =
+                "DELETE FROM registered_students\n" +
+                        "WHERE student_id = ? AND class_id = ?;";
+
+        try
+                (
+                        Connection connection = getDatabaseConnection();
+                        PreparedStatement sqlStatement = connection.prepareStatement(sql);
+                )
+        {
+            sqlStatement.setInt(1, studentID);
+            sqlStatement.setInt(2, classID);
+
+            int numberOfRowsAffected = sqlStatement.executeUpdate();
+            System.out.println("numberOfRowsAffected = " + numberOfRowsAffected);
+
+            if (numberOfRowsAffected > 0)
+            {
+                System.out.println("SUCCESSFULLY deleted the row from the registered_students table");
+            }
+            else
+            {
+                System.out.println("!!! WARNING: failed to delete the row from the registered_students table");
+            }
+        }
+        catch (SQLException sqlException)
+        {
+            System.out.println("!!! SQLException: failed to delete the row from the registered_students table");
+            System.out.println(sqlException.getMessage());
+        }
+    }
+
     private void printTableHeader(String[] listOfColumnNames)
     {
         System.out.print("| ");

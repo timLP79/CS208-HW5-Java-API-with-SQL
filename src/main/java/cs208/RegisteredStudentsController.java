@@ -66,7 +66,7 @@ public class RegisteredStudentsController
         }
         catch (SQLException e)
         {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student with id = " + studentID + " not found.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
@@ -82,8 +82,29 @@ public class RegisteredStudentsController
      * @throws ResponseStatusException: a 404 status code if the student with id = {studentId} does not exist
      * @throws ResponseStatusException: a 404 status code if the class with id = {classId} does not exist
      */
-    // TODO: implement this route
+    @DeleteMapping(value = "/drop_student_from_class")
+    public ResponseEntity<Map<String, Object>> delete(
+            @RequestParam("studentID") int studentID,
+            @RequestParam("classID") int classID
+    )
+    {
+        System.out.println("studentID: " + studentID);
+        System.out.println("classID: " + classID);
 
+        Map<String, Object> response = new HashMap<>();
+
+        try
+        {
+            Main.database.dropStudentFromClass(studentID, classID);
+            response.put("status", "success");
+            response.put("message", "Student with id = " + studentID + " deleted from class with id = " + classID);
+            return ResponseEntity.ok(response);
+        }
+        catch (SQLException e)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
+        }
+    }
 
 
     /**
